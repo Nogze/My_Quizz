@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <nav class="navbar navbar-light bg-light">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_main') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/quizz">Quizz</a>
+                </li>
+                {% if app.user and app.user.isVerified == true %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_user") }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                        </a>
+                    </li>
+                    <li  class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">
+                        Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_register") }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_login") }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            login
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% if app.user and app.user.isVerified == false %}
+            <div class="alert alert-warning alert-dismissible">
+                <button class="btn-close"></button>
+                <div class="alert-message">
+                    <strong> Votre compte n'est pas activé</strong>, renvoyer le lien d'activation
+                </div>
+            </div>
+        {% endif %}
+        {% block body %}{% endblock %}
+    </body>
+</html>

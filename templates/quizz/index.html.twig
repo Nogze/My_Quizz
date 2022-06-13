@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quizz : {{ quizz.name }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ quizz.name }}</h1>
+
+{% if isOver == false %}
+
+<h2>{{ question.question }}</h2>
+<form method="POST" action="{{nextQuestion}}">
+
+<input type="hidden" name="previousAnswer" value="{{submittedAnswers}}">
+
+{% for answer in answers %}
+
+    <button type="submit" name="answer" value="{{ answer.answer }}">{{ answer.answer }}</button>
+
+{% endfor %}
+</form>
+
+{% endif %}
+
+{% if isOver == true %}
+
+<h2>Résultats</h2>
+<h3>Score : {{score}} / {{submittedAnswers|length}}</h3>
+{% for submittedAnswer in submittedAnswers %}
+<p>{{submittedAnswers[loop.index - 1]}} - {{rightAnswers[loop.index - 1]}}</p>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

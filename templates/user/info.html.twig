@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnal information{% endblock %}
+
+{% block body %}
+    <h1>Personnal information</h1>
+    <div>
+        Email : {{ app.user.email }} <a class="btn" href="{{ path('user_edit') }}">Change</a>
+    </div>
+     <div>
+        Password : ******** <a class="btn" href="">Change</a>
+    </div>
+{% endblock %}

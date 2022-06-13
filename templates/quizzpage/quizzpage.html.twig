@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="overflow-hidden">
+        <h1 class="text-center">Quizz</h1>
+        <h2 class="text-center">Liste des quizz</h2>
+        <div class="grid">
+            <div class="row">
+            {% for quizz in quizzList %}
+            <div class="col-3 px-5 py-3">
+                <a href="quizz/{{quizz.id}}/0">
+                    <h3>Quizz n°{{quizz.id}} : {{quizz.name}}</h3>
+                </a>
+                <p>Publié par {% if quizz.author %}{{quizz.author}}{% endif %} {% if not quizz.author %} anonyme {% endif %} le {{quizz.getCreationDate|date("d/m/Y")}}.</p>
+            </div>
+            {% if (loop.index % 4) == 0 %}</div>{% endif %}
+            {% if (loop.index % 4) == 0 %}<div class="row">{% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
